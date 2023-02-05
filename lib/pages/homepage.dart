@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:habits/components/action_button.dart';
 import 'package:habits/components/mothly_summary.dart';
 import 'package:habits/data/habit_database.dart';
+import 'package:habits/pages/exapandable.dart';
+import 'package:habits/pages/splashscreen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../components/habit_tile.dart';
@@ -66,6 +69,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       db.todaysHabitList.add([_newHabitNameController.text, false]);
     });
+    _newHabitNameController.clear();
     Navigator.pop(context);
     db.UpdateDatabase();
   }
@@ -77,6 +81,7 @@ class _HomePageState extends State<HomePage> {
     Navigator.pop(context);
   }
 
+  //settings
   void openHabitSettings(int index) {
     showDialog(
       context: context,
@@ -110,17 +115,69 @@ class _HomePageState extends State<HomePage> {
     db.UpdateDatabase();
   }
 
+  void quiting(index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Are you sure'),
+          content: Text('Do you want to close the app?'),
+          actions: <Widget>[
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: Text('No')),
+            TextButton(
+                onPressed: () {
+                  Future.delayed(Duration(seconds: 2), () {
+                    Text('Opps still working on it 😅😅😅');
+                    setState(() {});
+                  });
+                  Text('Opps still working on it 😅😅😅');
+                  Navigator.of(context).pop(true);
+                },
+                child: Text('Yes')),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey,
-        floatingActionButton: MyFloatingActionbutton(
-          onPressed: createNewHabit,
+        floatingActionButton: ExpandableFab(
+          children: [
+            ActionButton(
+              icon: const Icon(Icons.exit_to_app_rounded),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SplashScreen()));
+              },
+            ),
+            ActionButton(
+              icon: const Icon(Icons.power_settings_new_rounded),
+              onPressed: () {},
+            ),
+            ActionButton(
+              icon: const Icon(Icons.add),
+              onPressed: createNewHabit,
+            ),
+          ],
+          distance: 120,
         ),
+        // MyFloatingActionbutton(
+        //   onPressed: createNewHabit,
+        // ),
         body: ListView(
           children: [
             // monthly summarry
-            MonthlySummary(datasets: db.heatMapDataset, startDate: _myBox.get("START_DATE"),),
+            MonthlySummary(
+              datasets: db.heatMapDataset,
+              startDate: _myBox.get("START_DATE"),
+            ),
 
             // list of habits
             ListView.builder(

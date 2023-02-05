@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:habits/pages/bottompart.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+// import 'package:flutter/src/widgets/container.dart';
+// import 'package:flutter/src/widgets/framework.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late AnimationController _habitScreenController;
-  late bool animatedHabit = false;
+  bool animatedHabit = false;
   late bool animatedHabitText = false;
 
   @override
@@ -26,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen>
         _habitScreenController.stop();
         animatedHabit = true;
         setState(() {});
-        Future.delayed(Duration(seconds: 1), () {
+        Future.delayed(Duration(seconds: 2), () {
           animatedHabitText = true;
           setState(() {});
         });
@@ -44,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     var screenheight = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.orange.shade300,
+      backgroundColor: Colors.lightBlue,
       body: Stack(
         children: [
           AnimatedContainer(
@@ -92,10 +93,12 @@ class _SplashScreenState extends State<SplashScreen>
                       duration: Duration(seconds: 1),
                       child: Text(
                         "H A B I T S",
-                        style: TextStyle(
+                        style: GoogleFonts.itim(
+                            textStyle: TextStyle(
                           fontSize: 40.0,
-                          color: Colors.orange.shade300,
-                        ),
+                          // GoogleFonts.aboreto(),
+                          color: Color(0xFF003399),
+                        )),
                       ),
                     ),
                   ),
@@ -104,7 +107,7 @@ class _SplashScreenState extends State<SplashScreen>
             ),
           ),
           Visibility(
-            visible: animatedHabit,
+            visible: !animatedHabit ? false : true,
             child: const BottomPart(),
           ),
         ],
