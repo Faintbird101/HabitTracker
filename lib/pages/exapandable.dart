@@ -93,7 +93,7 @@ class _ExpandableFabState extends State<ExpandableFab>
 
   Widget _tapOpen() {
     return AnimatedContainer(
-      duration: Duration(seconds: 3),
+      duration: Duration(milliseconds: 250),
       transformAlignment: Alignment.center,
       transform: Matrix4.diagonal3Values(
         _open ? 0.7 : 1.0,

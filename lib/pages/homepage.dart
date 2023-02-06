@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:habits/components/action_button.dart';
 import 'package:habits/components/mothly_summary.dart';
 import 'package:habits/data/habit_database.dart';
@@ -150,23 +151,25 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.grey,
         floatingActionButton: ExpandableFab(
           children: [
-            ActionButton(
-              icon: const Icon(Icons.exit_to_app_rounded),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const SplashScreen()));
-              },
-            ),
+            // ActionButton(
+            //   icon: const Icon(Icons.exit_to_app_rounded),
+            //   onPressed: () {
+            //     Navigator.of(context).push(MaterialPageRoute(
+            //         builder: (context) => const SplashScreen()));
+            //   },
+            // ),
             ActionButton(
               icon: const Icon(Icons.power_settings_new_rounded),
-              onPressed: () {},
+              onPressed: () {
+                SystemNavigator.pop();
+              },
             ),
             ActionButton(
               icon: const Icon(Icons.add),
               onPressed: createNewHabit,
             ),
           ],
-          distance: 120,
+          distance: 80,
         ),
         // MyFloatingActionbutton(
         //   onPressed: createNewHabit,
