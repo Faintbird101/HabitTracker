@@ -107,7 +107,11 @@ class _ExpandableFabState extends State<ExpandableFab>
         curve: Curves.easeInOut,
         child: FloatingActionButton(
           onPressed: _toggle,
-          child: Icon(Icons.menu),
+          child: Icon(
+            Icons.menu,
+            color: Colors.white,
+          ),
+          backgroundColor: Color(0xFF05A9C7),
         ),
       ),
     );

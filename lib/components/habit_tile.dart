@@ -47,7 +47,7 @@ class HabitTile extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.grey[100],
+            color: habitcompeleted ? Color(0xFF05A9C7) : Colors.grey[100],
             borderRadius: BorderRadius.circular(5),
           ),
           child: Row(
@@ -59,8 +59,15 @@ class HabitTile extends StatelessWidget {
                 value: habitcompeleted,
                 onChanged: onChanged,
               ),
-              Text(habitName),
-              Icon(Icons.arrow_back_ios_new)
+              Text(
+                habitName,
+                style: TextStyle(
+                  decoration: habitcompeleted
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
+                ),
+              ),
+              Icon(Icons.arrow_back_ios_new),
             ],
           ),
         ),
